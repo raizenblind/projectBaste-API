@@ -20,7 +20,20 @@ Route.group(() => {
   
   Route.post('auth/register', 'UserController.register')
   Route.post('auth/login', 'UserController.login')
+  
+  Route.get('item/get', 'ItemListController.index')
+  Route.post('item/add', 'ItemListController.create')
+  Route.patch('item/:id', 'ItemListController.update')
+  Route.delete('item/:id', 'ItemListController.destroy')
 
+
+  Route.get('order/get', 'OrderController.index')
+  Route.post('order/add', 'OrderController.create').middleware('auth')
+  Route.patch('order/:id', 'OrderController.update').middleware('auth')
+
+  Route.get('cart/get', 'OrderCartListController.index').middleware('auth')
+  Route.patch('cart/:id', 'OrderCartListController.update').middleware('auth')
+  Route.delete('cart/:id', 'OrderCartListController.destroy').middleware('auth')
 }).prefix('api')
 
 
