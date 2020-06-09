@@ -9,7 +9,7 @@ class OrderSchema extends Schema {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
       table.string('status', 80).notNullable()
-      table.float("total_price", 8, 2).notNullable()
+      table.float("total_price", 16, 2).notNullable()
       table.timestamps()
     })
   }

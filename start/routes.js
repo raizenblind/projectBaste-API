@@ -20,6 +20,10 @@ Route.group(() => {
   
   Route.post('auth/register', 'UserController.register')
   Route.post('auth/login', 'UserController.login')
+  Route.get('auth/get', 'UserController.get').middleware('auth')
+  Route.patch('auth/update', 'UserController.update').middleware('auth')
+
+  Route.patch('wallet/:id', 'UserController.send')
   
   Route.get('item/get', 'ItemListController.index')
   Route.post('item/add', 'ItemListController.create')
@@ -29,11 +33,15 @@ Route.group(() => {
 
   Route.get('order/get', 'OrderController.index')
   Route.post('order/add', 'OrderController.create').middleware('auth')
-  Route.patch('order/:id', 'OrderController.update').middleware('auth')
+  Route.patch('order/:id', 'OrderController.update').middleware('auth') 
 
   Route.get('cart/get', 'OrderCartListController.index').middleware('auth')
   Route.patch('cart/:id', 'OrderCartListController.update').middleware('auth')
   Route.delete('cart/:id', 'OrderCartListController.destroy').middleware('auth')
+
+  Route.post('transaction/getall', 'UserTransactionController.get')
+
+  Route.post('transaction/get', 'UserTransactionController.getByUserID').middleware('auth')
 }).prefix('api')
 
 

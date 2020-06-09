@@ -2,44 +2,74 @@
 
 
 const ItemList = use('App/Models/ItemList')
+const Helpers = use('Helpers')
+const fs = require('fs')
 class ItemListController {
     async index() {
-        const item = await ItemList.all();
-        return item;
+        try {
+            const item = await ItemList.all();
+            return item;
+        }catch(err){
+            return err
+        }
+        
     }
 
     async create({ request }) {
-        const { Name, Description, Price, Image} = await request.all();
-        const itemList = new ItemList();
-        itemList.fill({
-            Name,
-            Description,
-            Price,
-            Image
-        });
-        await itemList.save();
-        const item = await ItemList.all();
-        return item;
+         
+        const { name, description, price, image, status} = await request.all();
+        try {
+            
+            const itemList = new ItemList();
+            itemList.fill({
+                name,
+                description,
+                price,
+                image,
+                status
+            });
+            await itemList.save();
+            const item = await ItemList.all();
+            return item;
+        }
+        catch(err) {
+            return err;
+        }
+
     }
 
     async update ({params, request}) {
-        const { Name, Description, Price, Image} = await request.all();
-        const itemList = await ItemList.find(params.id);
-        itemList.merge({
-            Name,
-            Description,
-            Price,
-            Image
-        });
+        const { name, description, price, image, status} = await request.all();
+        try {
+            const itemList = await ItemList.find(params.id);
+            itemList.merge({
+                name,
+                description,
+                price,
+                image,
+                status
+            });
 
-        await itemList.save();
-        return itemList;
+            await itemList.save();
+            const item = await ItemList.all();
+            return item;
+        }
+        catch(err) {
+            return err;
+        }
+        
     }
 
     async destroy ({params}) {
-        const itemList = await ItemList.find(params.id);
-        await itemList.delete();
-        return itemList;
+        try {
+            const itemList = await ItemList.find(params.id);
+            await itemList.delete();
+            const item = await ItemList.all();
+            return item;
+        }catch(err){
+            return err
+        }
+        
     }
 }
 

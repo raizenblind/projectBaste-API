@@ -8,10 +8,10 @@ class OrderCartListSchema extends Schema {
     this.create('order_cart_lists', (table) => {
       table.increments()
       table.integer('order_id').unsigned().references('id').inTable('orders')
-      table.string('name', 255).notNullable().unique()
+      table.string('name', 255).notNullable()
       table.string('description', 255)
-      table.float("price", 8, 2).notNullable()
-      table.string('image', 255).notNullable()
+      table.float("price", 16, 2).notNullable()
+      table.longtext('image').notNullable()
       table.integer("quantity").notNullable()
       table.timestamps()
     })
