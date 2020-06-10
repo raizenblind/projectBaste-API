@@ -10,6 +10,7 @@ class OrderCartListSchema extends Schema {
       table.integer('order_id').unsigned().references('id').inTable('orders')
       table.string('name', 255).notNullable()
       table.string('description', 255)
+      table.string('type', 60)
       table.float("price", 16, 2).notNullable()
       table.longtext('image').notNullable()
       table.integer("quantity").notNullable()

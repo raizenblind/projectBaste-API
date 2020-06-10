@@ -2,8 +2,8 @@
 
 
 const ItemList = use('App/Models/ItemList')
-const Helpers = use('Helpers')
-const fs = require('fs')
+const Drive = use('Drive')
+const moment = require("moment");
 class ItemListController {
     async index() {
         try {
@@ -17,18 +17,18 @@ class ItemListController {
 
     async create({ request }) {
          
-        const { name, description, price, image, status} = await request.all();
+        const { name, description, type, price, image, status} = await request.all();
         try {
-            
-            const itemList = new ItemList();
-            itemList.fill({
+            const img = Buffer.from(image.replace('data:image/png;base64,', ''), 'base64')
+            await Drive.put(`Assets/Products/${name}-${moment(new Date()).format("DD-MM-YYYY-hh-mm-a")}.png`, img)
+            await ItemList.create({
                 name,
                 description,
+                type,
                 price,
-                image,
+                image: `Assets/Products/${name}-${moment(new Date()).format("DD-MM-YYYY-hh-mm-a")}.png`,
                 status
             });
-            await itemList.save();
             const item = await ItemList.all();
             return item;
         }
@@ -39,12 +39,34 @@ class ItemListController {
     }
 
     async update ({params, request}) {
-        const { name, description, price, image, status} = await request.all();
+        const { name, description, type, price, image, status} = await request.all();
+        const img = Buffer.from(image.replace('data:image/png;base64,', ''), 'base64')
+
         try {
+
+            if(image.includes("data:image/png;base64,"))
+            {
+                await Drive.put(`Assets/Products/${name}-${moment(new Date()).format("DD-MM-YYYY-hh-mm-a")}.png`, img)
+                const itemList = await ItemList.find(params.id);
+                await itemList.merge({
+                    name,
+                    description,
+                    type,
+                    price,
+                    image: `Assets/Products/${name}-${moment(new Date()).format("DD-MM-YYYY-hh-mm-a")}.png`,
+                    status
+                });
+    
+                await itemList.save();
+                const item = await ItemList.all();
+                return item;
+            }
+
             const itemList = await ItemList.find(params.id);
             itemList.merge({
                 name,
                 description,
+                type,
                 price,
                 image,
                 status

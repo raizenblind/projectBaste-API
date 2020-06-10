@@ -23,7 +23,7 @@ Route.group(() => {
   Route.get('auth/get', 'UserController.get').middleware('auth')
   Route.patch('auth/update', 'UserController.update').middleware('auth')
 
-  Route.patch('wallet/:id', 'UserController.send')
+  Route.patch('wallet/send', 'UserController.send')
   
   Route.get('item/get', 'ItemListController.index')
   Route.post('item/add', 'ItemListController.create')

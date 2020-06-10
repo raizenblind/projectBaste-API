@@ -1,0 +1,1 @@
+[32minfo[39m: serving app on http://127.0.0.1:\\.\pipe\2c73d7ee-f603-468b-8357-4b7485aefbc2

@@ -7,7 +7,7 @@ class OrderCartListController {
     async index({ auth }) {
         try {
             const user = await auth.getUser()
-            const order = await user.orders().where('status', 'Pending').last()
+            const order = await user.orders().where('status', 'Unpaid').last()
             const cart = await order.orderCartLists().fetch()
             const list = {
                 id: order.id,

@@ -1,0 +1,46 @@
+[32minfo[39m: serving app on http://127.0.0.1:\\.\pipe\5391d570-f724-46e4-84c5-565a605f1058
+OrderCartList {
+  __setters__: [
+    '$attributes',
+    '$persisted',
+    'primaryKeyValue',
+    '$originalAttributes',
+    '$relations',
+    '$sideLoaded',
+    '$parent',
+    '$frozen',
+    '$visible',
+    '$hidden'
+  ],
+  '$attributes': {
+    id: 1,
+    order_id: 1,
+    name: 'Product 2',
+    description: 'Dhsjsj',
+    type: 'Foods',
+    price: 300,
+    image: 'Assets/Products/Product 2-10-06-2020-01-12-am.png',
+    quantity: 1,
+    created_at: 2020-06-09T17:23:50.000Z,
+    updated_at: 2020-06-09T17:23:50.000Z
+  },
+  '$persisted': true,
+  '$originalAttributes': {
+    id: 1,
+    order_id: 1,
+    name: 'Product 2',
+    description: 'Dhsjsj',
+    type: 'Foods',
+    price: 300,
+    image: 'Assets/Products/Product 2-10-06-2020-01-12-am.png',
+    quantity: 1,
+    created_at: 2020-06-09T17:23:50.000Z,
+    updated_at: 2020-06-09T17:23:50.000Z
+  },
+  '$relations': {},
+  '$sideLoaded': {},
+  '$parent': null,
+  '$frozen': false,
+  '$visible': undefined,
+  '$hidden': undefined
+}

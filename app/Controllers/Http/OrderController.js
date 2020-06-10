@@ -6,7 +6,7 @@ class OrderController {
     async index({ auth, response }) {
         try {
             const user = await auth.getUser()
-            const order = await user.orders().where('status', 'Pending').last()
+            const order = await user.orders().where('status', 'Unpaid').last()
             let list = {}
             if(!order){
                 return list;
@@ -30,13 +30,13 @@ class OrderController {
     async create({ auth, request }) {
         try {
             const user = await auth.getUser()
-            const { name, description, price, image} = await request.all();
-            let userOrder = await user.orders().where('status', 'Pending').last()
+            const { name, description, type, price, image} = await request.all();
+            let userOrder = await user.orders().where('status', 'Unpaid').last()
             
             if(!userOrder){
                 const order = new Order()
                 await order.fill({
-                    status: 'Pending',
+                    status: 'Unpaid',
                     total_price: price
                 })
                 await user.orders().save(order)
@@ -48,7 +48,7 @@ class OrderController {
                 await order.save()
             }
 
-            userOrder = await user.orders().where('status', 'Pending').last()
+            userOrder = await user.orders().where('status', 'Unpaid').last()
             const orderCart = await userOrder.orderCartLists().where('name', name).last()
 
             if(!orderCart){
@@ -56,6 +56,7 @@ class OrderController {
                 await orderCartList.fill({
                     name,
                     description,
+                    type,
                     price,
                     image,
                     quantity: 1
