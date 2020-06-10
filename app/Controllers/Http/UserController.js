@@ -30,7 +30,9 @@ class UserController {
                 middlename,
                 lastname,
                 gender,
-                picture: `Assets/Users/${firstname}-${lastname}-${moment(new Date()).format("DD-MM-YYYY-hh-mm-a")}.png`,
+                picture: picture.includes("data:image/png;base64,") ? 
+                `Assets/Users/${firstname}-${lastname}-${moment(new Date()).format("DD-MM-YYYY-hh-mm-a")}.png` 
+                :'Assets/User/profile_pic.png',
                 birthday,
                 age
             });
